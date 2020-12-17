@@ -726,11 +726,6 @@ end
             result.flag = 1
 
             countTypes(foundBee1, rightPair)
-
-            for k,v in pairs(foundBee2) do
-                print(k,v)
-            end
-
             countTypes(foundBee2, rightPair)
 
             elseif result.flag ~= 1 and result.flag ~= 0 then
