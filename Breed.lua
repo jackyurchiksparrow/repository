@@ -358,7 +358,7 @@ local trash = component.proxy("b196f984-01c1-4bae-b57b-32806b3acddf") -- interfa
 
 local alv = component.proxy("3ac060b1-a487-491a-b1b3-5bc267d0d5f0") -- interface for alveary
 
-local me = component.proxy("fef863b9-01b7-469a-a6fd-97f32b49c42d") -- interface for me system
+local me = component.proxy("b254c3dd-a91e-477c-9b93-39846fd800fe") -- interface for me system
 
 -- "item" can only be result of getItemsInNetwork() or findTheBee[1]
 -- true if bee is analyzed
