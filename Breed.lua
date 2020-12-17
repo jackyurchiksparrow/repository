@@ -816,10 +816,10 @@ end
 
 function os.sleep(timeout)
   checkArg(1, timeout, "number", "nil")
-  local deadline = computer.uptime() + (timeout or 0)
+  local deadline = component.uptime() + (timeout or 0)
   repeat
-    computer.pullSignal(deadline - computer.uptime())
-  until computer.uptime() >= deadline
+    component.pullSignal(deadline - component.uptime())
+  until component.uptime() >= deadline
 end
 
 function removeHybrids()
