@@ -724,11 +724,15 @@ end
 
             print("1st")
             for k,v in pairs(foundBee1) do
-                print(k,v)
+                for key, value in pairs(v) do
+                    print(key,value)
+                end
             end
             print("----")
             for k,v in pairs(foundBee2) do
-                print(k,v)
+                for key, value in pairs(v) do
+                    print(key,value)
+                end
             end
             print("2nd")
 
