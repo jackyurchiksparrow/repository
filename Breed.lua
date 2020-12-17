@@ -378,7 +378,7 @@ function AnalyzeTheBee(bee)
         os.sleep(70)
       end
 
-    exportTheBee(me, bee, "UP")  
+    -- exportTheBee(me, bee, "UP")  
 end
 
 -- function to check if passed table is th result of getItemsInNetwork() or getAvailableItems() only
@@ -824,10 +824,12 @@ end
 
 function removeHybrids()
     local me_stores = me.getItemsInNetwork()
+    local count = me_stores.n
 
     if me_stores.n > 0 then
         print("size:", getTableSize(me_stores, "ipairs"))
         for k, v in ipairs(me_stores) do
+
             local beeTemp = findTheBee(me_stores[k].label)
 
             for key, value in pairs(beeTemp[1][1]) do
@@ -845,6 +847,12 @@ function removeHybrids()
                 -- analyze it first
                 print("ready to analyze!")
                 AnalyzeTheBee(beeTemp[1][2])
+                os.sleep(3)
+                if me_stores.n == count then
+                    print("Analyzing complete")
+                else
+                    print("Analyze failed. Not enough honey or bee is gone!")
+                end
               end
         
             --   if isHybrid(beeTemp[1][1]) then
