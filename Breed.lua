@@ -657,10 +657,6 @@ local function countTypes(found_bee, rightPair)
     local countP = 0
     local countQ = 0
 
-    for k,v in pairs(found_bee) do
-        print(k, v)
-    end
-
     for i in ipairs(found_bee) do
 
         if i%2 ~= 0 then
@@ -743,10 +739,12 @@ end
             end
             result.flag = 0
             
-            if foundBee1 == false then 
-                countTypes(foundBee2, rightPair) 
-            else 
-                countTypes(foundBee1, rightPair) 
+            if foundBee1 == true or foundBee1 == true then
+                if foundBee1 == false then 
+                    countTypes(foundBee2, rightPair) 
+                else 
+                    countTypes(foundBee1, rightPair) 
+                end
             end
             
             
