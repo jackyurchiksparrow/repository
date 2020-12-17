@@ -658,7 +658,7 @@ local function countTypes(found_bee, rightPair)
     local countQ = 0
 
     for i in ipairs(found_bee) do
-        for k,v in pairs(found_bee) do
+        for k,v in pairs(found_bee[1]) do
             print(k, v)
         end
 
