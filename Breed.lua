@@ -352,13 +352,15 @@ local settings = {
     trashPlacement = "UP"
 }
 
-local alze = component.proxy("00daf442-5a54-47d5-885a-6609d82f80a4") -- interface for analyzing
+local alze = component.proxy("4cb38008-4f6c-4769-8a33-fd41b25413f0") -- interface for analyzing
 
-local trash = component.proxy("b196f984-01c1-4bae-b57b-32806b3acddf") -- interface for trashing
+local trash = component.proxy("8d63075a-5549-422e-83d8-b4920383123b") -- interface for trashing
 
 local alv = component.proxy("3ac060b1-a487-491a-b1b3-5bc267d0d5f0") -- interface for alveary
 
 local me = component.proxy("b254c3dd-a91e-477c-9b93-39846fd800fe") -- interface for me system
+
+local analyzer = component.proxy("ab1a1479-19d6-4f9c-9a47-2822cc96d78b") -- analyzer itself
 
 -- "item" can only be result of getItemsInNetwork() or findTheBee[1]
 -- true if bee is analyzed
@@ -370,6 +372,13 @@ end
 -- "bee" can only be result of getAvailableItems() or GetStackInSlot() or  findTheBee[2]
 function AnalyzeTheBee(bee)
     exportTheBee(alze, bee, settings.analyzePlacement)
+
+    while analyzer.isWorking() do
+        print("analyzing the bee...")
+        os.sleep(70)
+      end
+
+    -- exportTheBee(me, bee, "UP")  
 end
 
 -- function to check if passed table is th result of getItemsInNetwork() or getAvailableItems() only
@@ -649,6 +658,7 @@ local function countTypes(found_bee, rightPair)
     local countQ = 0
 
     for i in ipairs(found_bee) do
+        print(found_bee)
         if i%2 ~= 0 then
             if checkForTheWord(found_bee[1][i].name, "Drone") then countD = countD + 1 
             elseif checkForTheWord(found_bee[1][i].name, "Princess") then countP = countP + 1 
@@ -805,38 +815,51 @@ function isHybrid(bee)
     return bee.individual.active.species == bee.individual.inactive.species
 end
 
+-- function os.sleep(timeout)
+--   checkArg(1, timeout, "number", "nil")
+--   local deadline = component.uptime() + (timeout or 0)
+--   repeat
+--     component.pullSignal(deadline - component.uptime())
+--   until component.uptime() >= deadline
+-- end
+
 function removeHybrids()
     local me_stores = me.getItemsInNetwork()
+    local count = me_stores.n
 
     if me_stores.n > 0 then
         print("size:", getTableSize(me_stores, "ipairs"))
         for k, v in ipairs(me_stores) do
+
             local beeTemp = findTheBee(me_stores[k].label)
 
             for key, value in pairs(beeTemp[1][1]) do
                 print(key, value)
             end
             print("---")
+
             for key, value in pairs(beeTemp[1][2]) do
                 print(key, value)
             end
             print("---")
             
             if beeTemp ~= false then
-              if not isAnalyzed(tempBee[1][1]) then
+              if not isAnalyzed(beeTemp[1][1]) then
                 -- analyze it first
-                AnalyzeTheBee(tempBee[1][2])
-                -- wait until it is analyzed
-                while alze.isWorking() do
-                  os.sleep(30)
-                  print("analyzing the bee...")
+                print("ready to analyze!")
+                AnalyzeTheBee(beeTemp[1][2])
+                os.sleep(3)
+                if me_stores.n == count then
+                    print("Analyzing complete")
+                else
+                    print("Analyze failed. Not enough honey or bee is gone!")
                 end
               end
         
-              if isHybrid(tempBee[1][1]) then
-                -- remove it
-                exportTheBee(trash, tempBee[1][2], settings.trashPlacement)
-              end
+            --   if isHybrid(beeTemp[1][1]) then
+            --     -- remove it
+            --     exportTheBee(trash, beeTemp[1][2], settings.trashPlacement)
+            --   end
             end
         end
     else
