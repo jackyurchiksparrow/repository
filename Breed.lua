@@ -841,15 +841,15 @@ function removeHybrids()
             print("---")
             
             if beeTemp ~= false then
-              if not isAnalyzed(tempBee[1][1]) then
+              if not isAnalyzed(beeTemp[1][1]) then
                 -- analyze it first
                 print("ready to analyze!")
-                AnalyzeTheBee(tempBee[1][2])
+                AnalyzeTheBee(beeTemp[1][2])
               end
         
-            --   if isHybrid(tempBee[1][1]) then
+            --   if isHybrid(beeTemp[1][1]) then
             --     -- remove it
-            --     exportTheBee(trash, tempBee[1][2], settings.trashPlacement)
+            --     exportTheBee(trash, beeTemp[1][2], settings.trashPlacement)
             --   end
             end
         end
