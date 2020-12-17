@@ -688,9 +688,6 @@ end
         flag = 2
     }
 
-    local foundBee1 = {}
-    local foundBee2 = {}
-
     if getTableSize(ParentsPairs, "ipairs") <= 1 then
         return ParentsPairs
     else
@@ -711,8 +708,8 @@ end
                 checked2 = false,
             }
 
-            foundBee1 = findTheBee(v.label1)
-            foundBee2 = findTheBee(v.label2)
+            local foundBee1 = findTheBee(v.label1)
+            local foundBee2 = findTheBee(v.label2)
             rightPair.label1 = v.label1
             rightPair.label2 = v.label2
 
@@ -724,6 +721,16 @@ end
                 --print("cleared. Size:", getTableSize(result, "ipairs"))
             end
             result.flag = 1
+
+            print("1st")
+            for k,v in pairs(foundBee1) do
+                print(k,v)
+            end
+            print("----")
+            for k,v in pairs(foundBee2) do
+                print(k,v)
+            end
+            print("2nd")
 
             countTypes(foundBee1, rightPair)
             countTypes(foundBee2, rightPair)
