@@ -733,6 +733,9 @@ end
 
             countTypes(foundBee2, rightPair)
 
+            elseif result.flag ~= 1 and result.flag ~= 0 then
+            result.flag = nil
+            --print("insert nil")
             --print("insert both")
            elseif ((foundBee1 ~= false or foundBee2 ~= false) and (result.flag ~= 1)) then
 
@@ -745,9 +748,7 @@ end
             result.flag = 0
             
             if foundBee1 == false then 
-                for k,v in pairs(foundBee1) do
-                    print(k,v)
-                end
+                
                 countTypes(foundBee2, rightPair) 
             else 
                 countTypes(foundBee1, rightPair) 
@@ -755,9 +756,6 @@ end
             
             
             --print("insert one of")
-           elseif result.flag ~= 1 and result.flag ~= 0 then
-            result.flag = nil
-            --print("insert nil")
             else
               --print("continued")
               goto continue
