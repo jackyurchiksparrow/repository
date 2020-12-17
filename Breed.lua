@@ -805,14 +805,6 @@ function isHybrid(bee)
     return bee.individual.active.species == bee.individual.inactive.species
 end
 
-function os.sleep(timeout)
-  checkArg(1, timeout, "number", "nil")
-  local deadline = computer.uptime() + (timeout or 0)
-  repeat
-    computer.pullSignal(deadline - computer.uptime())
-  until computer.uptime() >= deadline
-end
-
 function removeHybrids()
     local me_stores = me.getItemsInNetwork()
 
