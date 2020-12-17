@@ -657,11 +657,6 @@ local function countTypes(found_bee, rightPair)
     local countP = 0
     local countQ = 0
 
-    for i in ipairs(found_bee) do
-        for k,v in pairs(found_bee[1]) do
-            print(k, v)
-        end
-
         if i%2 ~= 0 then
             if checkForTheWord(found_bee[1][i].name, "Drone") then countD = countD + 1 
             elseif checkForTheWord(found_bee[1][i].name, "Princess") then countP = countP + 1 
