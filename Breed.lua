@@ -659,6 +659,14 @@ local function countTypes(found_bee, rightPair)
 
     for i in ipairs(found_bee) do
 
+        print("----")
+        for k,v in pairs(found_bee) do
+            for key, value in pairs(v) do
+                print(key,value)
+            end
+        end
+        print("----")
+
         if i%2 ~= 0 then
             if checkForTheWord(found_bee[1][i].name, "Drone") then countD = countD + 1 
             elseif checkForTheWord(found_bee[1][i].name, "Princess") then countP = countP + 1 
@@ -722,24 +730,10 @@ end
             end
             result.flag = 1
 
-            print("1st")
-            for k,v in pairs(foundBee1) do
-                for key, value in pairs(v) do
-                    print(key,value)
-                end
-            end
-            print("----")
-            for k,v in pairs(foundBee2) do
-                for key, value in pairs(v) do
-                    print(key,value)
-                end
-            end
-            print("2nd")
-
             countTypes(foundBee1, rightPair)
             countTypes(foundBee2, rightPair)
 
-            elseif result.flag ~= 1 and result.flag ~= 0 then
+            elseif foundBee1 == false and foundBee2 == false and result.flag ~= 1 and result.flag ~= 0 then
             result.flag = nil
             --print("insert nil")
             --print("insert both")
@@ -754,38 +748,21 @@ end
             result.flag = 0
             
             if foundBee1 == false then 
-                
                 countTypes(foundBee2, rightPair) 
             else 
                 countTypes(foundBee1, rightPair) 
             end
             
-            
-            --print("insert one of")
             else
               --print("continued")
               goto continue
            end
 
-        --    print("---")
-        --    for k,v in pairs(rightPair) do
-        --     print(k, v)
-        --    end
-        --    print("---")
            table.insert(result, {rightPair})
            --print("inserted. Size:", getTableSize(result, "ipairs"))
         ::continue::
         end
     end
-
-    --if getTableSize(result, "ipairs") == 0 then
-        
-        -- rightPair.label1 = table[1]["label1"]
-        -- rightPair.label2 = table[1]["label2"]
-        -- print(rightPair.label1)
-        -- print(rightPair.label2)
-        -- table.insert(result, rightPair)
-    --end
 
     return result
 end
